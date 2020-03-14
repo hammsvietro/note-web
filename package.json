@@ -8,6 +8,8 @@
   "private": false,
   "dependencies": {
     "bcrypt": "^4.0.1",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "nodemon": "^2.0.2",
     "pg": "^7.18.2",
@@ -15,10 +17,14 @@
   },
   "scripts": {
     "dev": "nodemon src/server.js --ignore __tests__",
-    "test": "jest"
+    "pretest": "NODE_ENV=test sequelize db:migrate",
+    "test": "NODE_ENV=test jest",
+    "posttest": "NODE_ENV=test sequelize db:migrate:undo:all"
   },
   "devDependencies": {
     "jest": "^25.1.0",
-    "sequelize-cli": "^5.5.1"
+    "sequelize-cli": "^5.5.1",
+    "sqlite3": "^4.1.1",
+    "supertest": "^4.0.2"
   }
 }
