@@ -4,17 +4,19 @@ const {User} = require('../../src/app/models');
 const truncate = require('../utils/truncate');
 
 describe('User',()=>{
-    
+ 
     beforeEach(async () => await truncate());
-    
+ 
     it('should encrypt user password', async () => {
-        const user = await user.create({
+        const user = await User.create({
             name: 'Pedro',
             email:'cleber@gmail.com',
-            password: "12345678"
+            prePassword: "12345678"
         })
+ 
         const hash = await bcrypt.hash('12345678',8);
 
-        expect(user.password).toBe(hash)
+        expect(await bcrypt.compare('12345678', user.password)).toBe(true)
+    
     });
 });
